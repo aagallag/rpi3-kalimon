@@ -1,7 +1,7 @@
 #!/bin/bash
 git submodule update --init --recursive
-cd bcm-rpi3
-git checkout master
+cd nexmon
+git checkout rpi3-crosscompile
 git pull
 git submodule update --init --recursive
 cd kernel

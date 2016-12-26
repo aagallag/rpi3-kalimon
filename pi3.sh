@@ -16,7 +16,7 @@
 # * re4son's PI TFT kernel with nexmon
 #       > re4son: https://whitedome.com.au/re4son/sticky-fingers-kali-pi/#Vanilla
 #       > github: https://github.com/re4son/
-#       > nexmon: https://github.com/seemoo-lab/bcm-rpi3
+#       > nexmon: https://github.com/aagallag/nexmon
 #
 #
 #################
@@ -521,7 +521,7 @@ rm -rf ${basedir}/root/lib/firmware  # Remove /lib/firmware to copy linux firmwa
 rm -rf rpi-firmware
 
 # Copying kernel source to rootfs
-cp -rf $TOPDIR/bcm-rpi3/kernel ${basedir}/root/usr/src/kernel
+cp -rf $TOPDIR/kernel ${basedir}/root/usr/src/kernel
 
 # Linux Firmware (copy to /lib)
 echo "[+] Copying Linux Firmware to /lib"
@@ -553,9 +553,17 @@ _____  \
   #            #
   $(tput sgr0)"
 echo "*********************************************"
-cd $TOPDIR/bcm-rpi3/
-source setup_env.sh 
-cd $TOPDIR/bcm-rpi3/firmware_patching/nexmon/
+# Compile kernel
+cd ${basedir}/root/usr/src/kernel
+make re4son_pi2_defconfig -j $(grep -c processor /proc/cpuinfo)
+make modules_install INSTALL_MOD_PATH=${basedir}/root
+
+# Compile nexmon
+cd $TOPDIR/nexmon/
+source setup_env.sh
+export RPI3_KERNEL_PATH=${basedir}/root/usr/src/kernel/
+make
+cd $TOPDIR/nexmon/patches/bcm43438/7_45_41_26/nexmon/
 make
 
 # Copy nexmon firmware and module
