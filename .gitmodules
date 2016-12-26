@@ -1,9 +1,6 @@
 [submodule "nexmon"]
 	path = nexmon
-	url = https://github.com/aagallag/nexmon.git
-	brach = rpi3-crosscompile
-
+	url = https://github.com/aagallag/nexmon
 [submodule "kernel"]
 	path = kernel
 	url = https://github.com/nethunteros/re4son-raspberrypi-linux
-	brach = rpi-4.1.y-re4son

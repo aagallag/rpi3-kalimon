@@ -1,9 +1,9 @@
 #!/bin/bash
+TOPDIR=$PWD
 git submodule update --init --recursive
-cd nexmon
+
+cd $TOPDIR/nexmon
 git checkout rpi3-crosscompile
-git pull
-git submodule update --init --recursive
-cd kernel
-git checkout remotes/origin/rpi-4.4.y-re4son
-git pull
+
+cd $TOPDIR//kernel
+git checkout rpi-4.4.y-re4son
