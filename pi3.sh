@@ -554,9 +554,11 @@ _____  \
   $(tput sgr0)"
 echo "*********************************************"
 # Compile kernel
-echo "[+] Compiling kernel"
+echo "[+] Moving to kernel folder and making modules"
 cd ${basedir}/root/usr/src/kernel
 make re4son_pi2_defconfig -j $(grep -c processor /proc/cpuinfo)
+make -j $(grep -c processor /proc/cpuinfo)
+make modules_install INSTALL_MOD_PATH=${basedir}/root
 
 # Compile nexmon
 echo "[+] Compiling nexmon"
@@ -572,10 +574,6 @@ echo "[+] Copying nexmon firmware and module"
 cp brcmfmac43430-sdio.bin ${basedir}/root/root/
 cp brcmfmac43430-sdio.bin ${basedir}/root/lib/firmware/brcm/
 cp brcmfmac/brcmfmac.ko ${basedir}/root/root/
-
-echo "[+] Moving to kernel folder and making modules"
-cd ${basedir}/root/usr/src/kernel
-make modules_install INSTALL_MOD_PATH=${basedir}/root
 
 echo "[+] Copying kernel"
 # ARGH.  Device tree support requires we run this *sigh*
