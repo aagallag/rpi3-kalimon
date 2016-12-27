@@ -554,11 +554,12 @@ _____  \
   $(tput sgr0)"
 echo "*********************************************"
 # Compile kernel
+echo "[+] Compiling kernel"
 cd ${basedir}/root/usr/src/kernel
 make re4son_pi2_defconfig -j $(grep -c processor /proc/cpuinfo)
-make modules_install INSTALL_MOD_PATH=${basedir}/root
 
 # Compile nexmon
+echo "[+] Compiling nexmon"
 cd $TOPDIR/nexmon/
 source setup_env.sh
 export RPI3_KERNEL_PATH=${basedir}/root/usr/src/kernel/
@@ -573,7 +574,7 @@ cp brcmfmac43430-sdio.bin ${basedir}/root/lib/firmware/brcm/
 cp brcmfmac/brcmfmac.ko ${basedir}/root/root/
 
 echo "[+] Moving to kernel folder and making modules"
-cd $TOPDIR/bcm-rpi3/kernel/
+cd ${basedir}/root/usr/src/kernel
 make modules_install INSTALL_MOD_PATH=${basedir}/root
 
 echo "[+] Copying kernel"
