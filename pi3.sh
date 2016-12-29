@@ -576,6 +576,7 @@ cp brcmfmac43430-sdio.bin ${basedir}/root/lib/firmware/brcm/
 cp brcmfmac/brcmfmac.ko ${basedir}/root/root/
 
 echo "[+] Copying kernel"
+cd ${basedir}/root/usr/src/kernel
 # ARGH.  Device tree support requires we run this *sigh*
 perl scripts/mkknlimg --dtok arch/arm/boot/zImage ${basedir}/bootp/kernel7.img
 #cp arch/arm/boot/zImage ${basedir}/bootp/kernel7.img
